@@ -22,7 +22,7 @@ export default function Home() {
                 <ul className="hidden md:flex gap-x-6 text-white">
                   <li>
                     <Link href="/about">
-                      <p>About</p>
+                      <p className={'${Libre_Baskerville.class}'}>About</p>
                     </Link>
                   </li>
                 </ul>
