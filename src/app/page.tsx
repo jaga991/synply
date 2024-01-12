@@ -7,7 +7,7 @@ import Main from './main';
 
 export default function Home() {
   return (
-    <div className="flex p-20 flex-col">
+    <div className="flex flex-col">
       <Header />
       <Main />
     </div>
