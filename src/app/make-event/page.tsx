@@ -6,7 +6,7 @@ import { Libre_Baskerville } from 'next/font/google';
 export default function MakeEvent() {
   return (
     <div className="flex flex-col">
-
+      hello
     </div>
   )
 }
