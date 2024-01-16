@@ -15,7 +15,8 @@ const config: Config = {
       },
       colors: {
         'off-white': '#e5e5e5',
-        'dark-purple': '#14213d'
+        'dark-purple': '#14213d',
+        'grey': '#635F5F'
       },
     },
   },
