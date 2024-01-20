@@ -11,10 +11,10 @@ import { Calendar } from "react-multi-date-picker"
 
 type ValuePiece = Date | null;
 
-type Value = ValuePiece | [ValuePiece, ValuePiece];
+type Value = ValuePiece | any[];
 
 export default function MakeEvent() {
-  const [value, setValue] = useState<Value>(new Date());
+  const [value, setValue] = useState<any[]>([]);
   const [eventName, setEventName] = useState()
   const [dayType, setDayType] = useState<String>('day of week')
   const [dayOfWeek, setDayOfWeek] = useState<string[]>([])
@@ -52,15 +52,36 @@ export default function MakeEvent() {
 
   const handleChange = (e:any) => {
     for(let i of e) {
-      console.log(i.format())
+
+      setValue([
+        ...value, i.format()
+      ])
     }
-    setValue(e.value)
+
     
+  }
+
+  const handleCreateEvent = () => {
+    console.log(dayType)
+    let i;
+    if(dayType == 'day of week') {
+      i = dayOfWeek
+    }
+    else if(dayType == 'dates') {
+      i = value
+    }
+
+    let data = {
+      eventName: eventName,
+      days: i,
+    }
+
+    console.log(data)
   }
 
 
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col align-middle justify-center">
       <Header />
       <div className="flex flex-col bg-grey align-middle justify-center">
         <div className='flex flex-col py-12 px-96 text-center'>
@@ -81,22 +102,28 @@ export default function MakeEvent() {
       </div>
       <div className='flex justify-center'> 
         {dayType == 'day of week'? 
+          <div className='flex justify-center'>
+          {['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'].map((day, index) => (
+            <button name={day} onClick={handleDayOfWeek} key={index} className={`btn ${dayOfWeek.includes(day) ? 'bg-blue-400':'bg-blue-600'}  border p-2 `}>
+              {day}
+            </button>
+          ))}
+          </div>
+          :
           <Calendar 
           className=' text-black'
           multiple
           onChange={handleChange}
           /> 
-          :
-          <div className='flex justify-center'>
-            {['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'].map((day, index) => (
-              <button name={day} onClick={handleDayOfWeek} key={index} className={`btn ${dayOfWeek.includes(day) ? 'bg-blue-400':'bg-blue-600'}  border p-2 `}>
-                {day}
-              </button>
-            ))}
-          </div>
+          
+
         }
-        
+
       </div>
+      <button className=' self-center w-20 bg-blue-500' onClick={handleCreateEvent}>
+        Create Event
+      </button>
+
         
 
     </div>
