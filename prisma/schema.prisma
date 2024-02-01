@@ -10,28 +10,26 @@ datasource db {
   directUrl = env("POSTGRES_URL_NON_POOLING") // uses a direct connection
 }
 
-model Profile {
-  id        String     @id @default(cuid())
-  userId    Int        @unique
+model Event {
+  id        String
   name      String
-  imageUrl  String
-  email     String     @unique
-  Timeslot  Timeslot[]
+  dates     DateObject[]
+  timeStart DateTime
+  availability    Availability[]  
+  participants    User[]
+    
 }
 
-model Timeslot {
-  id      String     @id @default(cuid())
-  start   DateTime
-  members Profile[]  @relation(references: [id])
+model DateObject {
+  id        String   @id @default(cuid())
+  date      DateTime
+  Event     Event    @relation(fields: [eventId], references: [id])
+  eventId   String
 }
 
-model Schedule {
-  id        String     @id @default(cuid())
-  title     String
-  days      String[]
-  startTime String
-  endTime   String
-  passwd    String
-  timeslots Timeslot[] @relation(references: [id])
-  members   Profile[]  @relation(references: [id])
+model User {
+  id      String
+  name    String
+
 }
+
