@@ -13,18 +13,11 @@ datasource db {
 model Event {
   id        String
   name      String
-  dates     DateObject[]
+  dates     JSON[]
   timeStart DateTime
-  availability    Availability[]  
+  availability    JSON[]  
   participants    User[]
     
-}
-
-model DateObject {
-  id        String   @id @default(cuid())
-  date      DateTime
-  Event     Event    @relation(fields: [eventId], references: [id])
-  eventId   String
 }
 
 model User {
@@ -33,3 +26,4 @@ model User {
 
 }
 
+//convert DateObject to native Date Object
